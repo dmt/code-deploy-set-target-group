@@ -21,5 +21,6 @@ export SNS_TOPIC=codedeploy
 ```
 
 `npm run release` tests and deploys
+
 other `sls` commands work as well, of course
 
