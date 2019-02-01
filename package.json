@@ -1,0 +1,28 @@
+{
+  "name": "code-deploy-set-target-group",
+  "version": "1.0.7",
+  "description": "work around code deploy bug with blue/green deployments",
+  "main": "handler.js",
+  "scripts": {
+    "test": "npm run prettier && npm run lint && npm run jasmine",
+    "jasmine": "jasmine",
+    "release": "npm test && npm version patch && npm run deploy",
+    "deploy": "sls deploy",
+    "lint": "eslint --fix lib/**/*.js spec/**/*.js",
+    "prettier": "prettier --no-semi --print-width 120 --write lib/**/*.js spec/**/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dmt/code-deploy-set-target-group.git"
+  },
+  "author": "Daniel Temme (https://github.com/dmt)",
+  "homepage": "https://github.com/dmt/code-deploy-set-target-group#readme",
+  "devDependencies": {
+    "aws-sdk": "^2.395.0",
+    "eslint": "^5.12.1",
+    "eslint-plugin-jasmine": "^2.10.1",
+    "jasmine": "^3.3.1",
+    "prettier": "^1.16.3",
+    "serverless": "^1.36.3"
+  }
+}

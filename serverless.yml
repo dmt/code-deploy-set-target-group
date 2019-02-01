@@ -1,0 +1,62 @@
+# Welcome to Serverless!
+#
+# This file is the main config file for your service.
+# It's very minimal at this point and uses default values.
+# You can always add more config options for more control.
+# We've included some commented out config examples here.
+# Just uncomment any of them to get that config option.
+#
+# For full config options, check the docs:
+#    docs.serverless.com
+#
+# Happy Coding!
+
+service: code-deploy-set-target-group
+
+custom:
+  aws: 
+    region: ${env:AWS_REGION}
+    account: ${env:AWS_ACCOUNT}
+  topic: arn:aws:sns:${self:custom.aws.region}:${self:custom.aws.account}:${env:SNS_TOPIC}
+provider:
+  name: aws
+  runtime: nodejs8.10
+  region: ${self:custom.aws.region}
+  versionFunctions: false
+  logRetentionInDays: 30
+
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action: 
+        - "codedeploy:GetDeployment"
+      Resource: 
+        - "arn:aws:codedeploy:${self:custom.aws.region}:${self:custom.aws.account}:deploymentgroup:*"
+    - Effect: "Allow"
+      Action:
+        - "autoscaling:AttachLoadBalancerTargetGroups"
+      Resource: 
+        - "arn:aws:autoscaling:${self:custom.aws.region}:${self:custom.aws.account}:autoScalingGroup:*:autoScalingGroupName/*"
+    - Effect: "Allow"
+      Action:
+        - "autoscaling:DescribeLoadBalancerTargetGroups"
+      Resource: 
+        - "*"
+    - Effect: "Allow"
+      Action:
+        - "elasticloadbalancing:DescribeTargetGroups"
+      Resource: 
+        - "*"
+
+package:
+  exclude: 
+    - ./*
+    - spec/**
+  include: 
+    - lib/**
+
+functions:
+  setTargetGroup:
+    handler: lib/lambdas.setTargetGroup
+    description: "Update the target group of the asg after a successfull blue/green codedeploy. "
+    events:
+      - sns: ${self:custom.topic}
