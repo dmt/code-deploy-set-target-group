@@ -9,3 +9,17 @@ The final step would be to set the target group on the new auto scaling group wh
 
 It receives deployment SNS notifications and, on a successfull blue/green deploy, updates the new ASG's target group with the target group configured in the deployment group. This will only set the target group if there isn't already one set. It also always assumes one target group.
 
+## Usage
+
+Set environment variables for `AWS_REGION` and `AWS_ACCOUNT` and `SNS_TOPIC`. The topic should exist and needs to be configured as a trigger in all deployment groups that should be updated by this lambda. And you need to have permissions in AWS to have `serverless` configure the role for this lambda.
+
+E.g.
+```
+export AWS_REGION=eu-central-1
+export AWS_ACCOUNT=1234567890
+export SNS_TOPIC=codedeploy
+```
+
+`npm run release` tests and deploys
+other `sls` commands work as well, of course
+
