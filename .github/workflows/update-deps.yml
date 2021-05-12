@@ -28,6 +28,7 @@ jobs:
     - run: npm test
     
   commit:
+    needs: build
     runs-on: ubuntu-latest
     steps:
     - uses: stefanzweifel/git-auto-commit-action@v4
