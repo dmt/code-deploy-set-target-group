@@ -6,20 +6,20 @@ const baseDeploymentInfo = {
   creator: "user",
   deploymentStyle: {
     deploymentType: "BLUE_GREEN",
-    deploymentOption: "WITH_TRAFFIC_CONTROL"
+    deploymentOption: "WITH_TRAFFIC_CONTROL",
   },
   targetInstances: {
-    autoScalingGroups: ["asg name"]
+    autoScalingGroups: ["asg name"],
   },
   loadBalancerInfo: {
     targetGroupInfoList: [
       {
-        name: "target group name"
-      }
-    ]
-  }
+        name: "target group name",
+      },
+    ],
+  },
 }
-const withPromiseFunction = result => {
+const withPromiseFunction = (result) => {
   return { promise: () => Promise.resolve(result) }
 }
 const deploymentInfo = (merge = {}) => {
@@ -30,13 +30,13 @@ const asgTargetGroups = (merge = {}) => {
   const result = Object.assign(
     {},
     {
-      LoadBalancerTargetGroups: []
+      LoadBalancerTargetGroups: [],
     },
     merge
   )
   return withPromiseFunction(result)
 }
-const targetGroups = merge => {
+const targetGroups = (merge) => {
   const result = Object.assign({}, merge)
   return withPromiseFunction({ TargetGroups: [result] })
 }
@@ -51,7 +51,7 @@ describe("setTargetGroup", () => {
       "getDeployment",
       "describeLoadBalancerTargetGroups",
       "attachLoadBalancerTargetGroups",
-      "describeTargetGroups"
+      "describeTargetGroups",
     ])
     aws.ELBv2 = function ELBv2() {
       this.describeTargetGroups = mocks.describeTargetGroups
@@ -75,7 +75,7 @@ describe("setTargetGroup", () => {
       mocks.attachLoadBalancerTargetGroups.and.returnValue(withPromiseFunction(updateResult))
       mocks.describeTargetGroups.and.returnValue(
         targetGroups({
-          TargetGroupArn: targetGroupArn
+          TargetGroupArn: targetGroupArn,
         })
       )
 
@@ -88,7 +88,7 @@ describe("setTargetGroup", () => {
       expect(result).toBe(updateResult)
       expect(mocks.attachLoadBalancerTargetGroups).toHaveBeenCalledWith({
         AutoScalingGroupName: baseDeploymentInfo.targetInstances.autoScalingGroups[0],
-        TargetGroupARNs: [targetGroupArn]
+        TargetGroupARNs: [targetGroupArn],
       })
     })
   })
@@ -105,7 +105,7 @@ describe("setTargetGroup", () => {
       mocks.getDeployment.and.returnValue(deploymentInfo())
       mocks.describeLoadBalancerTargetGroups.and.returnValue(
         asgTargetGroups({
-          LoadBalancerTargetGroups: ["something"]
+          LoadBalancerTargetGroups: ["something"],
         })
       )
 
