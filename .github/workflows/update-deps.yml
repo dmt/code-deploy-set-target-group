@@ -1,6 +1,8 @@
 name: Node.js update dependencies
 
 on:
+  workflow_dispatch:
+    
   schedule:
     - cron: "0 2 * * 1"
   
