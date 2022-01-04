@@ -60,3 +60,7 @@ functions:
     description: "Update the target group of the asg after a successfull blue/green codedeploy. "
     events:
       - sns: ${self:custom.topic}
+
+plugins:
+  - serverless-sam
+
