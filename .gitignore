@@ -64,3 +64,4 @@ typings/
 .serverless
 
 .aws-sam/
+samconfig.toml

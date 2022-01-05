@@ -2,12 +2,12 @@
   "name": "code-deploy-set-target-group",
   "version": "1.0.7",
   "description": "work around code deploy bug with blue/green deployments",
-  "main": "handler.js",
+  "main": "lambdas.js",
   "scripts": {
     "test": "npm run prettier && npm run lint && npm run jasmine",
     "jasmine": "jasmine",
     "release": "npm test && npm version patch && npm run deploy",
-    "deploy": "sam deploy",
+    "deploy": "sam build && sam deploy",
     "lint": "eslint --fix lib/**/*.js spec/**/*.js",
     "prettier": "prettier --no-semi --print-width 120 --write lib/**/*.js spec/**/*.js"
   },

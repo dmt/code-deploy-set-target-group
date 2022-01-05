@@ -42,4 +42,4 @@ Resources:
         Event1:
           Type: SNS
           Properties:
-            Topic: !Ref: CodeDeploySnsTopic
+            Topic: !Sub 'arn:aws:sns:${AWS::Region}:${AWS::AccountId}:${CodeDeploySnsTopic}'
