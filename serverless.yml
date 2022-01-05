@@ -20,7 +20,7 @@ custom:
   topic: arn:aws:sns:${self:custom.aws.region}:${self:custom.aws.account}:${env:SNS_TOPIC}
 provider:
   name: aws
-  runtime: nodejs8.10
+  runtime: nodejs14.x
   region: ${self:custom.aws.region}
   versionFunctions: false
   logRetentionInDays: 30

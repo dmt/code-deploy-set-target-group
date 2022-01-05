@@ -1,0 +1,47 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+Description: 'SAM template for Serverless framework service: '
+Resources:
+  CodeDeploySetTargetGroupDevSetTargetGroup:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Handler: lib/lambdas.setTargetGroup
+      Runtime: nodejs14.x
+      CodeUri: >-
+        C:\Users\temmd001\IdeaProjects\code-deploy-set-target-group\.serverless\code-deploy-set-target-group.zip
+      Description: >-
+        Update the target group of the asg after a successfull blue/green
+        codedeploy. 
+      MemorySize: 128
+      Timeout: 3
+      Policies:
+        - Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Action:
+                - 'codedeploy:GetDeployment'
+              Resource: 'arn:aws:codedeploy:af-south-1:account:deploymentgroup:*'
+            - Effect: Allow
+              Action:
+                - 'autoscaling:AttachLoadBalancerTargetGroups'
+              Resource: >-
+                arn:aws:autoscaling:af-south-1:account:autoScalingGroup:*:autoScalingGroupName/*
+            - Effect: Allow
+              Action:
+                - 'autoscaling:DescribeLoadBalancerTargetGroups'
+              Resource:
+                - '*'
+            - Effect: Allow
+              Action:
+                - 'elasticloadbalancing:DescribeTargetGroups'
+              Resource:
+                - '*'
+      Events:
+        Event1:
+          Type: SNS
+          Properties:
+            Topic: ''
+  CodeDeploySetTargetGroupSnsTopicz3lC8:
+    Type: 'AWS::SNS::Topic'
+    Properties:
+      TopicName: 'arn:aws:sns:af-south-1:account:foo'
