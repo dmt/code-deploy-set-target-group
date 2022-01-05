@@ -7,7 +7,7 @@
     "test": "npm run prettier && npm run lint && npm run jasmine",
     "jasmine": "jasmine",
     "release": "npm test && npm version patch && npm run deploy",
-    "deploy": "sls deploy",
+    "deploy": "sam deploy",
     "lint": "eslint --fix lib/**/*.js spec/**/*.js",
     "prettier": "prettier --no-semi --print-width 120 --write lib/**/*.js spec/**/*.js"
   },
@@ -22,8 +22,6 @@
     "eslint": "^8.6.0",
     "eslint-plugin-jasmine": "^4.1.3",
     "jasmine": "^4.0.1",
-    "prettier": "^2.5.1",
-    "serverless": "^2.70.0",
-    "serverless-sam": "^0.2.0"
+    "prettier": "^2.5.1"
   }
 }
