@@ -15,5 +15,5 @@ Use the aws sam cli. The template takes a parameter "CodeDeploySnsTopic" of an e
 
 `npm test` runs tests and linting. 
 
-other things go through `sam` commands work as well, of course
+other things that go through `sam` commands work as well, of course
 
